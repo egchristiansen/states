@@ -11,7 +11,12 @@ import org.junit.*
 @TestFor(State)
 class StateTests {
 
-    void testSomething() {
-       fail "Implement me"
+    void testLocationCount() {
+       State testState = new State()
+       testState.name = "Minnesota"
+       testState.locations = ["55306", "55044"];
+
+       assert 2 == testState.locationCount()
+
     }
 }
