@@ -4,12 +4,11 @@ class State {
 
 	String name
 	String abbreviation
+	List locations
 
 	String toString () { name }
 
 	Integer locationCount() { locations.size() }
-
-	static hasMany = [locations: Location]
 
     static constraints = {
 
