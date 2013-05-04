@@ -5,8 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException
 class StateController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
     def index() {
+        log.info "Before call webservice"
+        log.info "After call webservice"
         redirect(action: "list", params: params)
     }
 
