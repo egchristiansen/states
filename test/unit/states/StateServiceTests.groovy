@@ -44,4 +44,26 @@ class StateServiceTests {
         assert zipCounts.findIndexOf{it.key=="Wisconsin"} == 2
 
     }
+
+    void testCleanUpJSONResponse() {
+    	StateService service = new StateService()
+    	def jsonResponse = "({result: [{Zipcode: \"60001\"}]})"
+
+    	def expected = "{result: [{Zipcode: \"60001\"}]}"
+
+    	jsonResponse = service.cleanUpJSONResponse(jsonResponse);
+    	assert jsonResponse == expected
+
+    }
+
+    void testCleanUpJSONResponseNoParens() {
+    	StateService service = new StateService()
+    	def jsonResponse = "{result: [{Zipcode: \"60001\"}]}"
+
+    	def expected = "{result: [{Zipcode: \"60001\"}]}"
+
+    	jsonResponse = service.cleanUpJSONResponse(jsonResponse);
+    	assert jsonResponse == expected
+
+    }
 }
