@@ -2,6 +2,9 @@ package states
 
 import groovyx.net.http.*
 import static groovyx.net.http.ContentType.*
+import net.sf.*;
+import net.sf.json.*;
+import net.sf.json.groovy.*;
 
 class StateService {
 
@@ -17,15 +20,15 @@ class StateService {
 	        response = get(
 	       		path: "/json.php",
 	       		contentType : ContentType.TEXT,
-	       		query : [fds:'geo/usa/zipcode/state/IL']
+	       		query : [fds:'geo/usa/zipcode/state/IL', jsoncallback:'']
 	       	)
 
 	    }
 
 	    def text = response.getText()
-	    if (text.getAt(0) == '(') {
-	    	text.replace()
-	    }
+	    text = cleanUpJSONResponse(text)
+	    def stateLocationJSON = new JsonSlurper().parseText(text)
+	    
 	    println text.size()
 	    println "Made it!"
 
@@ -36,7 +39,6 @@ class StateService {
     	def stateName = ''
     	def locationCount = 0
 
-    	//Should probably go back 
     	states = states.sort {State a, State b -> a.toString().compareTo(b.toString()) }
 
     	for ( state in states ) {
