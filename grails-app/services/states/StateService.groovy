@@ -12,15 +12,14 @@ class StateService {
    		"/state/$id?"(resource:"state")
 	}
 
-    def callWebService() {
-    	println "here"
-    	println ContentType.TEXT
+    def callWebService(abbreviation) {
     	def response
+    	def fields = 'geo/usa/zipcode/state/' + abbreviation 
     	withHttp(id: "zipcodes", uri: "http://gomashup.com") {
 	        response = get(
 	       		path: "/json.php",
 	       		contentType : ContentType.TEXT,
-	       		query : [fds:'geo/usa/zipcode/state/IL', jsoncallback:'']
+	       		query : [fds: fields, jsoncallback:'']
 	       	)
 
 	    }
@@ -28,9 +27,9 @@ class StateService {
 	    def text = response.getText()
 	    text = cleanUpJSONResponse(text)
 	    def stateLocationJSON = new JsonSlurper().parseText(text)
-	    
-	    println text.size()
-	    println "Made it!"
+	    def locationService = new LocationService()
+	    def locations = locationService.createLocationsFromJSON(stateLocationJSON)
+	    return locations
 
     }
 
@@ -59,6 +58,23 @@ class StateService {
     		responseText = responseText.substring(1, responseText.length()-1) 
     	}
     	return responseText
+    }
+
+    def createStates () {
+    	StateEnum.each {
+       		def state = new State()
+    		state.name = it.getName()
+    		state.abbreviation = it.abbreviation
+    		state.locations = []
+    		println state.name
+    		def locations = callWebService(it.abbreviation)
+    		state.locations = locations
+    		
+			if (!state.save(failOnError: true, flush: true)) {
+				println "Failed on " + state.name + " " + state.abbreviation + " " + state.locations.size()
+			}
+    		
+    	}
     }
 
 }

@@ -6,6 +6,8 @@ class State {
 	String abbreviation
 	List locations
 
+	static hasMany = [locations: Location]
+
 	String toString () { name }
 
 	Integer locationCount() { locations.size() }

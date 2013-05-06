@@ -41,24 +41,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${locationInstance?.latitude}">
-				<li class="fieldcontain">
-					<span id="latitude-label" class="property-label"><g:message code="location.latitude.label" default="Latitude" /></span>
-					
-						<span class="property-value" aria-labelledby="latitude-label"><g:fieldValue bean="${locationInstance}" field="latitude"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${locationInstance?.longitude}">
-				<li class="fieldcontain">
-					<span id="longitude-label" class="property-label"><g:message code="location.longitude.label" default="Longitude" /></span>
-					
-						<span class="property-value" aria-labelledby="longitude-label"><g:fieldValue bean="${locationInstance}" field="longitude"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${locationInstance?.zipCode}">
 				<li class="fieldcontain">
 					<span id="zipCode-label" class="property-label"><g:message code="location.zipCode.label" default="Zip Code" /></span>

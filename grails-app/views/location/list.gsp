@@ -28,10 +28,6 @@
 					
 						<g:sortableColumn property="county" title="${message(code: 'location.county.label', default: 'County')}" />
 					
-						<g:sortableColumn property="latitude" title="${message(code: 'location.latitude.label', default: 'Latitude')}" />
-					
-						<g:sortableColumn property="longitude" title="${message(code: 'location.longitude.label', default: 'Longitude')}" />
-					
 						<g:sortableColumn property="zipCode" title="${message(code: 'location.zipCode.label', default: 'Zip Code')}" />
 					
 					</tr>
@@ -43,10 +39,6 @@
 						<td><g:link action="show" id="${locationInstance.id}">${fieldValue(bean: locationInstance, field: "city")}</g:link></td>
 					
 						<td>${fieldValue(bean: locationInstance, field: "county")}</td>
-					
-						<td>${fieldValue(bean: locationInstance, field: "latitude")}</td>
-					
-						<td>${fieldValue(bean: locationInstance, field: "longitude")}</td>
 					
 						<td>${fieldValue(bean: locationInstance, field: "zipCode")}</td>
 					

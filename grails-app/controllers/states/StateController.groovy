@@ -7,9 +7,7 @@ class StateController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def stateService
     def index() {
-        log.info "Before call webservice"
-        stateService.callWebService()
-        log.info "After call webservice"
+        stateService.createStates()
         redirect(action: "list", params: params)
     }
 
