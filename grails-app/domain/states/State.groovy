@@ -4,15 +4,21 @@ class State {
 
 	String name
 	String abbreviation
-	List locations
+	Integer zipCount
 
-	static hasMany = [locations: Location]
+	String toString() { name }
 
-	String toString () { name }
+	Integer getZipCount() { zipCount }
 
-	Integer locationCount() { locations.size() }
+	State() {} 
 
+	//This is here to make my unit tests cleaner
+    State(String name, Integer zipCount) { 
+    	this.name = name 
+    	this.zipCount = zipCount
+    } 
+    
     static constraints = {
-
+    
     }
 }

@@ -6,8 +6,8 @@ class StateController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def stateService
+    def tagCloudService
     def index() {
-        stateService.createStates()
         redirect(action: "list", params: params)
     }
 
@@ -40,6 +40,16 @@ class StateController {
         }
 
         [stateInstance: stateInstance]
+    }
+
+    def tagcloud() {
+        if (State.count() == 0) {
+            stateService.createStates()
+        }
+        def instanceList = State.list(params)
+        def countsByState = stateService.getZipCountsByState(instanceList)
+        def tagSizesByState = tagCloudService.getStateTagSize(countsByState, 32, 8)
+        [zipCountsbyState: tagSizesByState, stateInstanceList: instanceList, stateInstanceTotal: State.count()]
     }
 
     def edit(Long id) {

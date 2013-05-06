@@ -23,12 +23,12 @@ class StateService {
 	       	)
 
 	    }
-
-	    def text = response.getText()
-	    text = cleanUpJSONResponse(text)
+        println "Webservice call complete"
+	    def text = cleanUpJSONResponse(response.getText())
+        println "Cleaning up JSON complete"
 	    def stateLocationJSON = new JsonSlurper().parseText(text)
-	    def locationService = new LocationService()
-	    def locations = locationService.createLocationsFromJSON(stateLocationJSON)
+        println "Parse JSON complete"
+	    def locations = stateLocationJSON.result
 	    return locations
 
     }
@@ -42,7 +42,7 @@ class StateService {
 
     	for ( state in states ) {
     		stateName = state.toString()
-    		locationCount = state.locationCount()
+    		locationCount = state.getZipCount()
     		zipCounts.put(stateName, locationCount)
 		}
 
@@ -61,20 +61,25 @@ class StateService {
     }
 
     def createStates () {
+        println "Create States Being Called"
     	StateEnum.each {
        		def state = new State()
     		state.name = it.getName()
     		state.abbreviation = it.abbreviation
-    		state.locations = []
+    		state.zipCount = 0
     		println state.name
     		def locations = callWebService(it.abbreviation)
-    		state.locations = locations
+            println "All webservice work complete"
+            state.zipCount = locations.size()
+            println "Getting Zip count"
     		
-			if (!state.save(failOnError: true, flush: true)) {
+			if (!state.save(failOnError: true)) {
 				println "Failed on " + state.name + " " + state.abbreviation + " " + state.locations.size()
 			}
-    		
+    		println "After Save state"
     	}
+        println "done"
+
     }
 
 }

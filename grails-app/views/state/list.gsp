@@ -28,6 +28,8 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'state.name.label', default: 'Name')}" />
 					
+						<g:sortableColumn property="zipCount" title="${message(code: 'state.zipCount.label', default: 'Zip Count')}" />
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -37,6 +39,8 @@
 						<td><g:link action="show" id="${stateInstance.id}">${fieldValue(bean: stateInstance, field: "abbreviation")}</g:link></td>
 					
 						<td>${fieldValue(bean: stateInstance, field: "name")}</td>
+					
+						<td>${fieldValue(bean: stateInstance, field: "zipCount")}</td>
 					
 					</tr>
 				</g:each>

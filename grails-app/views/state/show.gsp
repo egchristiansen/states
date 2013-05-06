@@ -32,22 +32,20 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${stateInstance?.locations}">
-				<li class="fieldcontain">
-					<span id="locations-label" class="property-label"><g:message code="state.locations.label" default="Locations" /></span>
-					
-						<g:each in="${stateInstance.locations}" var="l">
-						<span class="property-value" aria-labelledby="locations-label"><g:link controller="location" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${stateInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="state.name.label" default="Name" /></span>
 					
 						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${stateInstance}" field="name"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${stateInstance?.zipCount}">
+				<li class="fieldcontain">
+					<span id="zipCount-label" class="property-label"><g:message code="state.zipCount.label" default="Zip Count" /></span>
+					
+						<span class="property-value" aria-labelledby="zipCount-label"><g:fieldValue bean="${stateInstance}" field="zipCount"/></span>
 					
 				</li>
 				</g:if>

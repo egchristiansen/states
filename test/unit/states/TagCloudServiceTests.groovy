@@ -16,20 +16,21 @@ class TagCloudServiceTests {
         def expected = ["Alaska" : 1, "California" : 32, "Kentucky": 7, "Minnesota" : 21, "Wisconsin" : 16]
         def stateTagSize = [:]
         def maxTagSize = 32
+        def minTagSize = 8
     	def maxCount = 900
     	def minCount = 20
     	def difference = maxCount - minCount
 
         TagCloudService tagCloudService = new TagCloudService()
 
-        stateTagSize = tagCloudService.getStateTagSize(stateCounts, maxTagSize)
+        stateTagSize = tagCloudService.getStateTagSize(stateCounts, maxTagSize, minTagSize)
 
         assert stateTagSize.size() == 5
-        assert stateTagSize["Alaska"] == 1
+        assert stateTagSize["Alaska"] == minTagSize
         assert stateTagSize["California"] == maxTagSize
-        assert stateTagSize["Kentucky"] == 6
-        assert stateTagSize["Minnesota"] == 21
-        assert stateTagSize["Wisconsin"] == 15
+        assert stateTagSize["Kentucky"] == 13
+        assert stateTagSize["Minnesota"] == 24
+        assert stateTagSize["Wisconsin"] == 20
 
     }
 }
