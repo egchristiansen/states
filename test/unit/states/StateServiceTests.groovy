@@ -16,17 +16,11 @@ class StateServiceTests {
         StateService service = new StateService()
 
         //Let's make some Locations and States for testing
-        State minnesota = new State()
-        minnesota.name = "Minnesota"
-        minnesota.locations = ['55306', '55044', '55113']
+        State minnesota = new State("Minnesota", 3)
 
-        State kentucky = new State()
-        kentucky.name = "Kentucky"
-        kentucky.locations = ['40201', '40202']
+        State kentucky = new State("Kentucky", 2)
 
-        State wisconsin = new State()
-        wisconsin.name = "Wisconsin"
-        wisconsin.locations = ['53201']
+        State wisconsin = new State("Wisconsin", 1)
 
         def expected = ["Kentucky" : 2, "Minnesota" : 3, "Wisconsin" : 1]
 

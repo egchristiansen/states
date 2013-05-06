@@ -8,7 +8,7 @@ class StateController {
     def stateService
     def tagCloudService
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "tagcloud", params: params)
     }
 
     def list(Integer max) {
@@ -35,7 +35,7 @@ class StateController {
         def stateInstance = State.get(id)
         if (!stateInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'state.label', default: 'State'), id])
-            redirect(action: "list")
+            redirect(action: "tagcloud")
             return
         }
 
@@ -56,7 +56,7 @@ class StateController {
         def stateInstance = State.get(id)
         if (!stateInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'state.label', default: 'State'), id])
-            redirect(action: "list")
+            redirect(action: "tagcloud")
             return
         }
 
@@ -67,7 +67,7 @@ class StateController {
         def stateInstance = State.get(id)
         if (!stateInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'state.label', default: 'State'), id])
-            redirect(action: "list")
+            redirect(action: "tagcloud")
             return
         }
 
@@ -96,18 +96,32 @@ class StateController {
         def stateInstance = State.get(id)
         if (!stateInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'state.label', default: 'State'), id])
-            redirect(action: "list")
+            redirect(action: "tagcloud")
             return
         }
 
         try {
             stateInstance.delete(flush: true)
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'state.label', default: 'State'), id])
-            redirect(action: "list")
+            redirect(action: "tagcloud")
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'state.label', default: 'State'), id])
             redirect(action: "show", id: id)
         }
     }
+
+    def deleteAll() {
+        try {
+            State.executeUpdate('delete from State')
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'state.label', default: 'State')])
+            redirect(action: "tagcloud")
+        }
+        catch (DataIntegrityViolationException e) {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'state.label', default: 'State')])
+            redirect(action: "tagcloud", id: id)
+        }
+        
+    }
+
 }

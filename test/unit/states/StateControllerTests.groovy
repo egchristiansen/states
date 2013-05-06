@@ -11,13 +11,14 @@ class StateControllerTests {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["name"] = "Minnesota"
+        params["zipCount"] = 3
+        params["abbreviation"] = "MN"
     }
 
     void testIndex() {
         controller.index()
-        assert "/state/list" == response.redirectedUrl
+        assert "/state/tagcloud" == response.redirectedUrl
     }
 
     void testList() {
@@ -54,7 +55,7 @@ class StateControllerTests {
         controller.show()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/state/list'
+        assert response.redirectedUrl == '/state/tagcloud'
 
         populateValidParams(params)
         def state = new State(params)
@@ -72,7 +73,7 @@ class StateControllerTests {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/state/list'
+        assert response.redirectedUrl == '/state/tagcloud'
 
         populateValidParams(params)
         def state = new State(params)
@@ -90,7 +91,7 @@ class StateControllerTests {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/state/list'
+        assert response.redirectedUrl == '/state/tagcloud'
 
         response.reset()
 
@@ -101,7 +102,10 @@ class StateControllerTests {
 
         // test invalid parameters in update
         params.id = state.id
-        //TODO: add invalid values to params object
+        params.name = "Iowa"
+        params.abbreviation = "IA"
+        params.zipCount = 5
+        params["joe"] = "joe"
 
         controller.update()
 
@@ -134,7 +138,7 @@ class StateControllerTests {
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/state/list'
+        assert response.redirectedUrl == '/state/tagcloud'
 
         response.reset()
 
@@ -150,6 +154,6 @@ class StateControllerTests {
 
         assert State.count() == 0
         assert State.get(state.id) == null
-        assert response.redirectedUrl == '/state/list'
+        assert response.redirectedUrl == '/state/tagcloud'
     }
 }
